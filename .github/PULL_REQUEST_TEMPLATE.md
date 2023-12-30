@@ -31,4 +31,4 @@
 The APK can be found by going to the "Checks" tab below the title. On the left pane, click on "CI", scroll down to "artifacts" and click "app" to download the zip file which contains the debug APK of this PR. You can find more info and a video demonstration [on this wiki page](https://github.com/TeamNewPipe/NewPipe/wiki/Download-APK-for-PR).
 
 #### Due diligence
-- [ ] I read the [contribution guidelines](https://github.com/TeamNewPipe/NewPipe/blob/HEAD/.github/CONTRIBUTING.md).
+- [ ] I read the [contribution guidelines](https://github.com/javulticat/NewPipe/blob/sponsorblock/.github/CONTRIBUTING.md).

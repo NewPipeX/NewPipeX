@@ -155,7 +155,7 @@ class NewVersionWorker(
         private val DEBUG = MainActivity.DEBUG
         private val TAG = NewVersionWorker::class.java.simpleName
         private const val API_URL =
-            "https://api.github.com/repos/polymorphicshade/NewPipe/releases/latest"
+            "https://api.github.com/repos/javulticat/NewPipe/releases/latest"
         private const val IS_MANUAL = "isManual"
 
         /**
