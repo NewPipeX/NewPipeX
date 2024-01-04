@@ -62,7 +62,7 @@ android {
             archivesBaseName = "NewPipe_x_SponsorBlock"
             android.applicationVariants.all { variant ->
                 variant.outputs.all { output ->
-                    def forkRevision = 1
+                    def forkRevision = 2
                     outputFileName = "${archivesBaseName}_v${variant.versionName}-${forkRevision}.apk"
                 }
             }
