@@ -32,6 +32,17 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            if (System.getenv("KEYSTORE_FILE")) {
+                storeFile file(System.getenv("KEYSTORE_FILE"))
+                storePassword System.getenv("KEYSTORE_PASSWORD")
+                keyAlias System.getenv("KEY_ALIAS")
+                keyPassword System.getenv("KEYSTORE_PASSWORD")
+            }
+        }
+    }
+
     buildTypes {
         debug {
             debuggable true
@@ -39,7 +50,7 @@ android {
             // suffix the app id and the app name with git branch name
             def workingBranch = getGitWorkingBranch()
             def normalizedWorkingBranch = workingBranch.replaceFirst("^[^A-Za-z]+", "").replaceAll("[^0-9A-Za-z]+", "")
-            if (normalizedWorkingBranch.isEmpty() || workingBranch == "master" || workingBranch == "dev") {
+            if (normalizedWorkingBranch.isEmpty() || workingBranch == "master" || workingBranch == "dev" || workingBranch == "sponsorblock") {
                 // default values when branch name could not be determined or is master or dev
                 applicationIdSuffix ".debug"
                 resValue "string", "app_name", "NewPipe SponsorBlock Debug"
@@ -51,6 +62,9 @@ android {
         }
 
         release {
+            if (System.getenv("KEYSTORE_FILE")) {
+                signingConfig signingConfigs.release
+            }
             if (System.properties.containsKey('packageSuffix')) {
                 applicationIdSuffix System.getProperty('packageSuffix')
                 resValue "string", "app_name", "NewPipe SponsorBlock" + System.getProperty('packageSuffix')
@@ -60,10 +74,12 @@ android {
             shrinkResources false // disabled to fix F-Droid's reproducible build
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             archivesBaseName = "NewPipe_x_SponsorBlock"
-            android.applicationVariants.all { variant ->
+            applicationVariants.all { variant ->
                 variant.outputs.all { output ->
-                    def forkRevision = 2
-                    outputFileName = "${archivesBaseName}_v${variant.versionName}-${forkRevision}.apk"
+                    if (variant.name == "release") {
+                        def forkRevision = 2
+                        outputFileName = "${archivesBaseName}_v${variant.versionName}-${forkRevision}.apk"
+                    }
                 }
             }
         }

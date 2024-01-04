@@ -16,6 +16,12 @@ jobs:
     steps:
     - name: Checkout code repository
       uses: actions/checkout@v4
+    - name: Decode keystore
+      id: keystore
+      uses: timheuer/base64-to-file@v1
+      with:
+        fileName: keystore.jks
+        encodedString: ${{ secrets.ENCODED_KEYSTORE }}
     - name: Setup Java
       uses: actions/setup-java@v4
       with:
@@ -24,6 +30,10 @@ jobs:
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
     - name: Build release APK
+      env:
+        KEYSTORE_FILE: ${{ steps.keystore.outputs.filePath }}
+        KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
       run: ./gradlew clean assembleRelease
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
