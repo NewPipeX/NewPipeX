@@ -1,0 +1,50 @@
+name: CD
+
+on:
+  push:
+    tags:
+    - "v?[0-9]+.[0-9]+.[0-9]+(-[0-9]?)?"
+
+jobs:
+  publish-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      tag: ${{ github.ref_name }}
+    steps:
+    - name: Checkout code repository
+      uses: actions/checkout@v4
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: 17
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+    - name: Build release APK
+      run: ./gradlew assembleRelease
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release
+        path: app/build/outputs/apk/release/*.apk
+    - name: Get upstream tag
+      run: echo "upstream_tag=${tag%%"-"*}" >> "$GITHUB_ENV"
+    - name: Get upstream changelog
+      env:
+        changelogs_folder: fastlane/metadata/android/en-US/changelogs
+      run: echo "changelog=${{ github.server_url }}/${{ github.repository }}/blob/${{ env.upstream_tag }}/$(find $changelogs_folder -name $(ls -vr $changelogs_folder | head -1))" >> "$GITHUB_ENV"
+    - name: Create release notes
+      env:
+        upstream_tag: ${{ env.upstream_tag }}
+        changelog: ${{ env.changelog }}
+      run: |
+        echo "release_notes=$([[ $tag =~ ^$upstream_tag(-1)?$ ]] && echo "This release merges latest NewPipe \`$upstream_tag\`.<br><br>For the complete list of upstream changes see [CHANGELOG]($changelog).$([[ $tag != $upstream_tag ]] && echo "<br><br>Information specific to this fork can be found below:<br>")" || echo "This release **only** includes changes specific to this fork. Please see below for more information:<br>")" >> "$GITHUB_ENV"
+        echo "include_fork_changelog=$([[ $tag != $upstream_tag ]] && echo "true" || echo "false")" >> "$GITHUB_ENV"
+    - name: Create GitHub Release with APK
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: app/build/outputs/apk/release/*.apk
+        body: ${{ env.release_notes }}
+        generateReleaseNotes: ${{ env.include_fork_changelog }}
