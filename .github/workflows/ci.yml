@@ -7,6 +7,7 @@ on:
       - dev
       - master
       - release**
+      - sponsorblock
     paths-ignore:
       - 'README.md'
       - 'doc/**'
@@ -19,6 +20,7 @@ on:
     branches:
       - dev
       - master
+      - sponsorblock
     paths-ignore:
       - 'README.md'
       - 'doc/**'
