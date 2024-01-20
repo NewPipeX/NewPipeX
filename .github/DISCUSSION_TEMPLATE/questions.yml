@@ -1,5 +1,5 @@
 name: Question
-description: Ask about anything NewPipe-related
+description: Ask a question about the project
 labels: [question]
 body:
   - type: markdown
@@ -7,26 +7,24 @@ body:
       value: |
         Thanks for taking the time to fill out this form! :hugs:
 
-        Note that you can also ask questions on our [IRC channel](https://web.libera.chat/#newpipe).
-
   - type: checkboxes
     id: checklist
     attributes:
       label: "Checklist"
       options:
-        - label: "I made sure that there are *no existing issues or discussions* - [open](https://github.com/TeamNewPipe/NewPipe/issues) or [closed](https://github.com/TeamNewPipe/NewPipe/issues?q=is%3Aissue+is%3Aclosed) - which I could contribute my information to."
+        - label: "I made sure that my question *has not* already been asked by searching the [existing questions](https://github.com/javulticat/NewPipe/discussions/categories/questions?discussions_q=)"
           required: true
-        - label: "I have read the [FAQ](https://newpipe.net/FAQ/) and my question isn't listed."
+        - label: "I have read the *entire* [README](https://github.com/javulticat/NewPipe#readme), and I am sure it does not answer my question."
           required: true
-        - label: "I have taken the time to fill in all the required details. I understand that the question will be dismissed otherwise."
+        - label: "I have taken the time to completely fill in the required details. I understand that my question may be dismissed otherwise."
           required: true
-        - label: "I have read and understood the [contribution guidelines](https://github.com/TeamNewPipe/NewPipe/blob/dev/.github/CONTRIBUTING.md)."
+        - label: "I have read and understood the [contribution guidelines](https://github.com/javulticat/NewPipe/blob/sponsorblock/.github/CONTRIBUTING.md)."
           required: true
 
   - type: textarea
     id: what-is-the-question
     attributes:
-      label: What is/are your question(s)?
+      label: What is your question?
     validations:
       required: true
 

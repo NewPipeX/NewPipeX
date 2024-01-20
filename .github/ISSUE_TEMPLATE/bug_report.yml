@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for helping to make NewPipe better by reporting a bug. :hugs:
+        Thank you for helping to make this fork of `NewPipe` better by reporting a bug. :hugs:
 
         Please fill in as much information as possible about your bug so that we don't have to play "information ping-pong" and can help you immediately.
 
@@ -14,26 +14,35 @@ body:
     attributes:
       label: "Checklist"
       options:
-        - label: "I am able to reproduce the bug with the latest version given here: [CLICK THIS LINK](https://github.com/javulticat/NewPipe/releases/latest)."
+        - label: "I am able to reproduce the bug with the latest Release of this fork: [CLICK THIS LINK](https://github.com/javulticat/NewPipe/releases/latest)."
           required: true
-        - label: "I am *not* able to reproduce the bug with the *same version* of [upstream NewPipe](https://github.com/TeamNewPipe/NewPipe/releases/)."
+        - label: "I am *not* able to reproduce the bug with the *same version* of [upstream `NewPipe`](https://github.com/TeamNewPipe/NewPipe/releases)."
           required: true
-        - label: "I made sure that there are *no existing issues* - [open](https://github.com/javulticat/NewPipe/issues) or [closed](https://github.com/javulticat/NewPipe/issues?q=is%3Aissue+is%3Aclosed) - which I could contribute my information to."
+        - label: "I made sure that there are *no existing bug reports* - [open](https://github.com/javulticat/NewPipe/issues?q=is%3Aissue+is%3Aopen+label%3Abug) or [closed](https://github.com/javulticat/NewPipe/issues?q=is%3Aissue+is%3Aclosed+label%3Abug) - which I could contribute my information to."
           required: true
-        - label: "I have read the [FAQ](https://newpipe.net/FAQ/) and my problem isn't listed."
+        - label: "I made sure that this bug is *not* [a known issue with upstream `NewPipe`](https://github.com/TeamNewPipe/NewPipe/issues?q=is%3Aissue+is%3Aopen+label%3Abug)."
           required: true
-        - label: "I have taken the time to fill in all the required details. I understand that the bug report will be dismissed otherwise."
+        - label: "I have taken the time to completely fill in the required details. I understand that my bug report may be dismissed otherwise."
           required: true
-        - label: "This issue contains only one bug."
+        - label: "I have limited the scope of this bug report to a single bug."
           required: true
         - label: "I have read and understood the [contribution guidelines](https://github.com/javulticat/NewPipe/blob/sponsorblock/.github/CONTRIBUTING.md)."
           required: true
 
   - type: input
+    id: fork-revision
+    attributes:
+     label: Affected release
+     description: "In which [Release](https://github.com/javulticat/NewPipe/releases) of this fork did you encounter the bug?"
+     placeholder: "x.xx.x-x - The version/tag of the Release on GitHub"
+    validations:
+      required: true
+
+  - type: input
     id: app-version
     attributes:
-     label: Affected version
-     description: "In which NewPipe version did you encounter the bug?"
+     label: App version
+     description: "What version number is shown in the app where you encountered the bug?"
      placeholder: "x.xx.x - Can be seen in the app from the 'About' section in the sidebar"
     validations:
       required: true
@@ -76,7 +85,7 @@ body:
 
         If applicable, add screenshots or a screen recording to help explain your problem.
         GitHub supports uploading them directly in the text box.
-        If your file is too big for Github to accept, try to compress it (ZIP-file) or feel free to paste a link to an image/video hoster here instead.
+        If your file is too big for GitHub to accept, try to compress it (ZIP-file) or feel free to paste a link to an image/video hoster here instead.
 
         :heavy_exclamation_mark: DON'T POST SCREENSHOTS OF THE ERROR PAGE.
         Instead, follow the instructions in the "Logs" section below.
@@ -114,4 +123,3 @@ body:
         * you have disabled all animations on your device
         * your cat disabled your network connection
         * ...
-

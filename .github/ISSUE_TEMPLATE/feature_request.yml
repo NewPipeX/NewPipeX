@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for helping to make NewPipe better by suggesting a feature. :hugs:
+        Thank you for helping to make this fork of `NewPipe` better by suggesting a feature. :hugs:
 
         Your ideas are highly welcome! The app is made for you, the users, after all.
   - type: checkboxes
@@ -13,26 +13,27 @@ body:
     attributes:
       label: "Checklist"
       options:
-        - label: "I made sure that there are *no existing issues* - [open](https://github.com/javulticat/NewPipe/issues) or [closed](https://github.com/javulticat/NewPipe/issues?q=is%3Aissue+is%3Aclosed) - which I could contribute my information to."
+        - label: "I made sure that there are *no feature requests* - [open](https://github.com/javulticat/NewPipe/issues?q=is%3Aissue+is%3Aopen+label%3A%22feature+request%22) or [closed](https://github.com/javulticat/NewPipe/issues?q=is%3Aissue+is%3Aclosed+label%3A%22feature+request%22) - that already cover my request."
           required: true
-        - label: "I have read the [FAQ](https://newpipe.net/FAQ/) and my problem isn't listed."
+        - label: "My feature request has a well-defined scope and is described in sufficient detail."
           required: true
-        - label: "I'm aware that this is a request for NewPipe itself and that requests for adding a new service need to be made at [NewPipeExtractor](https://github.com/TeamNewPipe/NewPipeExtractor/issues)."
-          required: true
-        - label: "I have taken the time to fill in all the required details. I understand that the feature request will be dismissed otherwise."
-          required: true
-        - label: "This issue contains only one feature request."
+        - label: "I understand and accept that my feature request may not be considered unless it can attract significant community support."
           required: true
         - label: "I have read and understood the [contribution guidelines](https://github.com/javulticat/NewPipe/blob/sponsorblock/.github/CONTRIBUTING.md)."
           required: true
-
+        - label: "I am positive that my feature request meets *one* of the following criteria, and I have checked the *one* box that applies to my feature request below:"
+          required: true
+        - label: "My feature request relates to fork-specific functionality that does not exist upstream (e.g., `SponsorBlock`, `Return YouTube Dislike`)."
+          required: false
+        - label: "My feature request has already been opened upstream, _and_ it has been declined."
+          required: false
 
   - type: textarea
     id: feature-description
     attributes:
       label: Feature description
       description: |
-        Explain how you want the app's look or behavior to change to suit your needs.
+        Explain how you want the app's look or behavior to change.
     validations:
       required: true
 
@@ -48,9 +49,9 @@ body:
   - type: textarea
     id: why-relevant-to-fork
     attributes:
-      label: Why is the feature relevant to this fork?
+      label: Why is this feature relevant to this fork?
       description: |
-        Describe why your feature is relevant to the features this fork aims to provide over regular NewPipe or demonstrate that [upstream](https://github.com/TeamNewPipe/NewPipe/issues) is *explicitly* against implementing your feature for *non-technical reasons*.
+        Describe why this feature is relevant to this fork's specific functionality that does not exist upstream OR demonstrate that this feature has already been requested [upstream](https://github.com/TeamNewPipe/NewPipe/issues), and it was *explicitly* declined.
 
         (This is not the place for stale upstream feature requests!)
     validations:
