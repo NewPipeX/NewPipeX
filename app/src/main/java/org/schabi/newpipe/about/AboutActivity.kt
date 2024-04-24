@@ -70,7 +70,7 @@ class AboutActivity : AppCompatActivity() {
             savedInstanceState: Bundle?
         ): View {
             FragmentAboutBinding.inflate(inflater, container, false).apply {
-                aboutAppVersion.text = BuildConfig.VERSION_NAME
+                aboutAppVersion.text = getString(R.string.version, BuildConfig.VERSION_NAME)
                 aboutGithubLink.openLink(R.string.github_url)
                 aboutDonationLink.openLink(R.string.donation_url)
                 aboutWebsiteLink.openLink(R.string.website_url)

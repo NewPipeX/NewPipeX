@@ -12,13 +12,13 @@ body:
     attributes:
       label: "Checklist"
       options:
-        - label: "I made sure that my question *has not* already been asked by searching the [existing questions](https://github.com/javulticat/NewPipe/discussions/categories/questions?discussions_q=)"
+        - label: "I made sure that my question *has not* already been asked by searching the [existing questions](https://github.com/NewPipeX/NewPipeX/discussions/categories/questions?discussions_q=)"
           required: true
-        - label: "I have read the *entire* [README](https://github.com/javulticat/NewPipe#readme), and I am sure it does not answer my question."
+        - label: "I have read the *entire* [README](https://github.com/NewPipeX/NewPipeX#readme), and I am sure it does not answer my question."
           required: true
         - label: "I have taken the time to completely fill in the required details. I understand that my question may be dismissed otherwise."
           required: true
-        - label: "I have read and understood the [contribution guidelines](https://github.com/javulticat/NewPipe/blob/sponsorblock/.github/CONTRIBUTING.md)."
+        - label: "I have read and understood the [contribution guidelines](https://github.com/NewPipeX/NewPipeX/blob/sponsorblock/.github/CONTRIBUTING.md)."
           required: true
 
   - type: textarea

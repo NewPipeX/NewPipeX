@@ -1,47 +1,38 @@
-### Fork Info
-Please note that this project is **a fork** of `polymorphicshade`'s popular [NewPipe fork](https://github.com/polymorphicshade/NewPipe) which originally integrated [SponsorBlock](https://sponsor.ajay.app/) and [Return YouTube Dislike](https://returnyoutubedislike.com/) functionality, which, unfortunately, was archived and is no longer maintained (as of December 29, 2023).
+# NewPipe X
+![Logo](.github/images/NewPipeX_logo_md.png)
 
-This project picks up from where the previous one left off. It is being actively maintained to ensure it is kept up-to-date with upstream `NewPipe` and fully incorporates the latest changes found in each new upstream release of `NewPipe`.
+**NewPipe**, e**X**tended!
 
-Our app is designed to be a plug-and-play replacement for its discontinued parent. If there is any data you wish to migrate from your current app, [follow the guide here on how to export/import data](https://newpipe.net/FAQ/tutorials/import-export-data/#export-database).
+[![Release](https://img.shields.io/github/v/release/NewPipeX/NewPipeX?label=Release)](https://github.com/NewPipeX/NewPipeX/releases/latest)
+[![License](https://img.shields.io/github/license/NewPipeX/NewPipeX?color=blue&label=License)](https://www.gnu.org/licenses/gpl-3.0)
+[![CI](https://github.com/NewPipeX/NewPipeX/actions/workflows/ci.yml/badge.svg?branch=sponsorblock)](https://github.com/NewPipeX/NewPipeX/actions?query=branch%3Asponsorblock)
 ___
-# NewPipe x SponsorBlock x Return YouTube Dislike
-[![Release](https://img.shields.io/github/v/release/javulticat/NewPipe?label=Release)](https://github.com/javulticat/NewPipe/releases/latest)
-[![License](https://img.shields.io/github/license/javulticat/NewPipe?color=blue&label=License)](https://www.gnu.org/licenses/gpl-3.0)
-[![CI](https://github.com/javulticat/NewPipe/actions/workflows/ci.yml/badge.svg?branch=sponsorblock)](https://github.com/javulticat/NewPipe/actions?query=branch%3Asponsorblock)
-___
-A fork of [NewPipe](https://github.com/TeamNewPipe/NewPipe) with [SponsorBlock](https://sponsor.ajay.app/) and [Return YouTube Dislike](https://returnyoutubedislike.com/) functionality.
+
+## What is this?
+
+**NewPipe X** is a [NewPipe](https://github.com/TeamNewPipe/NewPipe) fork that continues to develop the original (pre-[rewrite](https://github.com/TeamNewPipe/NewPipe/discussions/10118)) codebase.
+
+### Go on...
+
+The upstream NewPipe project has decided to undertake a [major rewrite effort](https://github.com/TeamNewPipe/NewPipe/discussions/10118), for which they will be halting feature development for the foreseeable future.
+
+**NewPipe X** offers the converse - continuing development on the original codebase rather than entirely rewriting it - to provide users with an alternative where functionality can continue to expand and improve.
+
+**NewPipe X** originally began as a project to revive the discontinued [NewPipe SponsorBlock](https://github.com/polymorphicshade/NewPipe) project, so it already includes (optional) [SponsorBlock](https://sponsor.ajay.app/) and [Return YouTube Dislike](https://returnyoutubedislike.com/) functionality.
 
 ![01](.github/images/preview01.gif)
 ![02](.github/images/preview02.gif)
 
+However, while its predecessor kept its scope limited to a couple of features, **NewPipe X** will consider any kind of functionality for implementation.
+
 ## How can I get this?
 
-### For versions prior to `v0.26.0`
-Currently, a couple of `polymorphicshade`'s original builds are still available via `IzzyOnDroid`:
-[<img alt="Get it on IzzyOnDroid" height="80" src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png">](https://apt.izzysoft.de/fdroid/index/apk/org.polymorphicshade.newpipe)
+New builds of **NewPipe X** are automatically uploaded as [Releases](https://github.com/NewPipeX/NewPipeX/releases) on GitHub. Please download the APK from the [latest release](https://github.com/NewPipeX/NewPipeX/releases/latest) and install it on your device.
 
-### For versions after `v0.26.0`
-New builds will be uploaded in the [Releases](https://github.com/javulticat/NewPipe/releases) section. Please download the APK from the newest release and install it on your device.
+If there is any data you wish to migrate from your current app to **NewPipe X**, [follow this guide on how to export/import data](https://newpipe.net/FAQ/tutorials/import-export-data/#export-database).
 
-_F-Droid availability is [coming soon](https://github.com/users/javulticat/projects/2)._
+Once installed, **NewPipe X** will automatically alert you whenever a new update is available.
 
-## Why isn't this in upstream NewPipe?
-[The developer team](https://github.com/TeamNewPipe) behind the official NewPipe decided that they do not want to include these kinds of functionality in their app. See https://newpipe.schabi.org/blog/pinned/newpipe-and-online-advertising/, https://github.com/TeamNewPipe/NewPipe/pull/3205, and https://github.com/TeamNewPipe/NewPipe/issues/7469 for more information and discussion.
+Alternatively, if you prefer an app-store-like experience, you can use [Obtainium](https://github.com/ImranR98/Obtainium) to manage installing/updating **NewPipe X**.
 
-## Bugs
-
-If you encounter a bug while using this fork, please only [create a bug report in this repo](https://github.com/javulticat/NewPipe/issues/new?assignees=&labels=bug%2Cneeds+triage&projects=&template=bug_report.yml) after you have confirmed that:
-
-1. It is _not_ [a known issue with upstream `NewPipe`](https://github.com/TeamNewPipe/NewPipe/issues?q=is%3Aissue+is%3Aopen+label%3Abug).
-2. You are _not_ able to recreate the bug while using upstream `NewPipe`.
-   * If you find that you can, please report the bug to the upstream developers.
-
-## Feature Requests
-
-Please only [open a feature request in this repo](https://github.com/javulticat/NewPipe/issues/new?assignees=&labels=feature+request%2Cneeds+triage&projects=&template=feature_request.yml) if it meets one of the following criteria:
-
-* The feature request relates to fork-specific functionality that does not exist upstream (e.g., `SponsorBlock`, `Return YouTube Dislike`)
-* The feature request has already been opened upstream, _and_ it has been declined
-
-**Please note that changes to app functionality will not be made lightly.** Only feature requests that can attract significant community support are likely to be considered for acceptance.
+_[F-Droid](https://f-droid.org) availability is [coming soon](https://github.com/orgs/NewPipeX/projects/1) to **NewPipe X**!_

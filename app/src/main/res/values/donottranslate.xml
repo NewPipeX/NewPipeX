@@ -17,9 +17,9 @@
     <string name="md5">MD5</string>
     <string name="sha1">SHA-1</string>
     <string name="recaptcha">reCAPTCHA</string>
-    <string name="github_url">https://github.com/javulticat/NewPipe</string>
-    <string name="donation_url">https://newpipe.net/donate/</string>
-    <string name="website_url">https://newpipe.net/</string>
+    <string name="github_url">https://github.com/NewPipeX/NewPipeX</string>
+    <string name="donation_url">https://github.com/NewPipeX/NewPipeX</string>
+    <string name="website_url">https://newpipex.org</string>
     <string name="privacy_policy_url">https://newpipe.net/legal/privacy/</string>
     <string name="faq_url">https://newpipe.net/FAQ/</string>
     <string name="service_kiosk_string">%1$s/%2$s</string>
@@ -27,4 +27,5 @@
     <string name="preferred_open_action_share_menu_title">@string/app_name</string>
     <string name="leakcanary">LeakCanary</string>
     <string name="caption_file_name">%1$s-%2$s</string>
+    <string name="version">v%1$s</string>
 </resources>

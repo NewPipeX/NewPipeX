@@ -14,11 +14,11 @@ body:
     attributes:
       label: "Checklist"
       options:
-        - label: "I am able to reproduce the bug with the latest Release of this fork: [CLICK THIS LINK](https://github.com/javulticat/NewPipe/releases/latest)."
+        - label: "I am able to reproduce the bug with the latest Release of this fork: [CLICK THIS LINK](https://github.com/NewPipeX/NewPipeX/releases/latest)."
           required: true
         - label: "I am *not* able to reproduce the bug with the *same version* of [upstream `NewPipe`](https://github.com/TeamNewPipe/NewPipe/releases)."
           required: true
-        - label: "I made sure that there are *no existing bug reports* - [open](https://github.com/javulticat/NewPipe/issues?q=is%3Aissue+is%3Aopen+label%3Abug) or [closed](https://github.com/javulticat/NewPipe/issues?q=is%3Aissue+is%3Aclosed+label%3Abug) - which I could contribute my information to."
+        - label: "I made sure that there are *no existing bug reports* - [open](https://github.com/NewPipeX/NewPipeX/issues?q=is%3Aissue+is%3Aopen+label%3Abug) or [closed](https://github.com/NewPipeX/NewPipeX/issues?q=is%3Aissue+is%3Aclosed+label%3Abug) - which I could contribute my information to."
           required: true
         - label: "I made sure that this bug is *not* [a known issue with upstream `NewPipe`](https://github.com/TeamNewPipe/NewPipe/issues?q=is%3Aissue+is%3Aopen+label%3Abug)."
           required: true
@@ -26,14 +26,14 @@ body:
           required: true
         - label: "I have limited the scope of this bug report to a single bug."
           required: true
-        - label: "I have read and understood the [contribution guidelines](https://github.com/javulticat/NewPipe/blob/sponsorblock/.github/CONTRIBUTING.md)."
+        - label: "I have read and understood the [contribution guidelines](https://github.com/NewPipeX/NewPipeX/blob/sponsorblock/.github/CONTRIBUTING.md)."
           required: true
 
   - type: input
     id: fork-revision
     attributes:
      label: Affected release
-     description: "In which [Release](https://github.com/javulticat/NewPipe/releases) of this fork did you encounter the bug?"
+     description: "In which [Release](https://github.com/NewPipeX/NewPipeX/releases) of this fork did you encounter the bug?"
      placeholder: "x.xx.x-x - The version/tag of the Release on GitHub"
     validations:
       required: true

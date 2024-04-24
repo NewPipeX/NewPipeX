@@ -9,7 +9,7 @@ You'll see *exactly* what is sent, be able to add **your comments**, and then se
 
 ## Issue reporting/feature requests
 
-* **Already reported**? Browse the [existing issues](https://github.com/javulticat/NewPipe/issues) to make sure your issue/feature hasn't been reported/requested.
+* **Already reported**? Browse the [existing issues](https://github.com/NewPipeX/NewPipeX/issues) to make sure your issue/feature hasn't been reported/requested.
 * **Already fixed**? Check whether your issue/feature is already fixed/implemented.
 * **Still relevant**? Check if the issue still exists in the latest release/beta version.
 * **Can you fix it**? If you are an Android/Java developer, you are always welcome to fix an issue or implement a feature yourself. PRs welcome! See [Code contribution](#code-contribution) for more info.
@@ -53,7 +53,7 @@ You'll see *exactly* what is sent, be able to add **your comments**, and then se
 ### Basic setup
 
 Android apps are typically developed using [Android Studio](https://developer.android.com/studio/). Learn more about how to install it and how it works in the [official documentation](https://developer.android.com/studio/intro). In particular, make sure you have accepted Android Studio's SDK licences. Once Android Studio is ready, setting up the project is fairly simple:
-- Clone the repository with `git clone https://github.com/javulticat/NewPipe.git` (or use the link from your own fork, if you want to open a PR).
+- Clone the repository with `git clone https://github.com/NewPipeX/NewPipeX.git` (or use the link from your own fork, if you want to open a PR).
 - Open the folder you just cloned with Android Studio.
 - Build and run it just like you would do with any other app, with the green triangle in the top bar.
 
@@ -78,6 +78,6 @@ The [ktlint](https://github.com/pinterest/ktlint) plugin does the same job as ch
 ## Communication
 
 * All communication is done through GitHub.
-* Create an [Issue](https://github.com/javulticat/NewPipe/issues/new/choose) if you have a bug report or feature request.
-* Start a [Discussion](https://github.com/javulticat/NewPipe/discussions/new/choose) if you have an idea, question, etc.
-* Share your thoughts (and/or emoji reactions) on existing [Issues](https://github.com/javulticat/NewPipe/issues) and [Discussions](https://github.com/javulticat/NewPipe/discussions).
+* Create an [Issue](https://github.com/NewPipeX/NewPipeX/issues/new/choose) if you have a bug report or feature request.
+* Start a [Discussion](https://github.com/NewPipeX/NewPipeX/discussions/new/choose) if you have an idea, question, etc.
+* Share your thoughts (and/or emoji reactions) on existing [Issues](https://github.com/NewPipeX/NewPipeX/issues) and [Discussions](https://github.com/NewPipeX/NewPipeX/discussions).
