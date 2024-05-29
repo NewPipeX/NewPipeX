@@ -45,7 +45,7 @@ jobs:
     - name: Get upstream changelog
       env:
         changelogs_folder: fastlane/metadata/android/en-US/changelogs
-      run: echo "changelog=${{ github.server_url }}/${{ github.repository }}/blob/${{ env.upstream_tag }}/$(find $changelogs_folder -name $(ls -vr $changelogs_folder | head -1))" >> "$GITHUB_ENV"
+      run: echo "changelog=${{ github.server_url }}/${{ github.repository }}/blob/${tag}/$(find $changelogs_folder -name $(ls -vr $changelogs_folder | head -1))" >> "$GITHUB_ENV"
     - name: Create release notes
       env:
         upstream_tag: ${{ env.upstream_tag }}
