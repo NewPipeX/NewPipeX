@@ -20,9 +20,7 @@ import com.grack.nanojson.JsonParser
 import com.grack.nanojson.JsonParserException
 import org.schabi.newpipe.extractor.downloader.Response
 import org.schabi.newpipe.extractor.exceptions.ReCaptchaException
-import org.schabi.newpipe.util.ReleaseVersionUtil.coerceUpdateCheckExpiry
-import org.schabi.newpipe.util.ReleaseVersionUtil.isLastUpdateCheckExpired
-import org.schabi.newpipe.util.ReleaseVersionUtil.isReleaseApk
+import org.schabi.newpipe.util.ReleaseVersionUtil
 import org.schabi.newpipe.util.Version
 import java.io.IOException
 
@@ -86,7 +84,7 @@ class NewVersionWorker(
     @Throws(IOException::class, ReCaptchaException::class)
     private fun checkNewVersion() {
         // Check if the current apk is a github one or not.
-        if (!isReleaseApk()) {
+        if (!ReleaseVersionUtil.isReleaseApk) {
             return
         }
 
@@ -95,7 +93,7 @@ class NewVersionWorker(
             // Check if the last request has happened a certain time ago
             // to reduce the number of API requests.
             val expiry = prefs.getLong(applicationContext.getString(R.string.update_expiry_key), 0)
-            if (!isLastUpdateCheckExpired(expiry)) {
+            if (!ReleaseVersionUtil.isLastUpdateCheckExpired(expiry)) {
                 return
             }
         }
@@ -110,7 +108,7 @@ class NewVersionWorker(
         try {
             // Store a timestamp which needs to be exceeded,
             // before a new request to the API is made.
-            val newExpiry = coerceUpdateCheckExpiry(response.getHeader("expires"))
+            val newExpiry = ReleaseVersionUtil.coerceUpdateCheckExpiry(response.getHeader("expires"))
             prefs.edit {
                 putLong(applicationContext.getString(R.string.update_expiry_key), newExpiry)
             }
