@@ -3,7 +3,7 @@ Project Contribution Guidelines
 
 ## Crash reporting
 
-Report crashes through the **automated crash report system** of NewPipe.
+Report crashes through the **automated crash report system** of NewPipe X.
 This way all the data needed for debugging is included in your bugreport for GitHub.
 You'll see *exactly* what is sent, be able to add **your comments**, and then send it.
 
@@ -20,10 +20,10 @@ You'll see *exactly* what is sent, be able to add **your comments**, and then se
 
 ## Translation
 
+* `NewPipe X` currently uses the translations from upstream `NewPipe`.
 * `NewPipe` is translated via [Weblate](https://hosted.weblate.org/projects/newpipe/strings/). Log in there with your GitHub account, or register.
 * Add the language you want to translate if it is not there already: see [How to add a new language](https://github.com/TeamNewPipe/NewPipe/wiki/How-to-add-a-new-language-to-NewPipe) in the wiki.
 * `NewPipe` uses the [PrettyTime](https://github.com/ocpsoft/prettytime) library to display localized versions of dates and times. It needs to be translated, too. Read [these instructions to add a new language](https://www.ocpsoft.org/prettytime/#section-14) and [this issue](https://github.com/TeamNewPipe/NewPipe/issues/9134) for more info.
-* This project uses the translations from upstream.
 
 ## Code contribution
 
@@ -42,11 +42,11 @@ You'll see *exactly* what is sent, be able to add **your comments**, and then se
 
 ### Creating a Pull Request (PR)
 
-* Make changes on a **separate branch** with a meaningful name, not on the `sponsorblock` branch or the `master` branch. This is commonly known as *feature branch workflow*. You may then send your changes as a pull request (PR) on GitHub.
+* Make changes on a **separate branch** with a meaningful name, not on the `main` branch or the `dev` branch. This is commonly known as *feature branch workflow*. You may then send your changes as a pull request (PR) on GitHub.
 * Please **test** (compile and run) your code before submitting changes! Ideally, provide test feedback in the PR description. Untested code will **not** be merged!
 * Respond if someone requests changes or otherwise raises issues about your PRs.
 * Try to figure out yourself why builds on our CI fail.
-* Make sure your PR is **up-to-date** with the rest of the code. Often, a simple click on "Update branch" will do the job, but if not, you must *rebase* your branch on the `sponsorblock` branch manually and resolve the conflicts on your own. You can find help [on the wiki](https://github.com/TeamNewPipe/NewPipe/wiki/How-to-merge-a-PR). Doing this makes the maintainers' job way easier.
+* Make sure your PR is **up-to-date** with the rest of the code. Often, a simple click on "Update branch" will do the job, but if not, you must *rebase* your branch on the `main` branch manually and resolve the conflicts on your own. You can find help [on the wiki](https://github.com/TeamNewPipe/NewPipe/wiki/How-to-merge-a-PR). Doing this makes the maintainers' job way easier.
 
 ## IDE setup & building the app
 
@@ -64,7 +64,7 @@ You may find [SonarLint](https://www.sonarlint.org/intellij)'s **inspections** u
 The [checkStyle](https://github.com/checkstyle/checkstyle) plugin verifies that Java code abides by the project style. It runs automatically each time you build the project. If you want to view errors directly in the editor, instead of having to skim through the build output, you can install an Android Studio plugin:
 - Go to `File -> Settings -> Plugins`, search for `checkstyle` and install `CheckStyle-IDEA`.
 - Go to `File -> Settings -> Tools -> Checkstyle`.
-- Add NewPipe's configuration file by clicking the `+` in the right toolbar of the "Configuration File" list.
+- Add `NewPipe X`'s configuration file by clicking the `+` in the right toolbar of the "Configuration File" list.
 - Under the "Use a local Checkstyle file" bullet, click on `Browse` and, enter `checkstyle` folder under the project's root path and pick the file named `checkstyle.xml`.
 - Enable "Store relative to project location" so that moving the directory around does not create issues.
 - Insert a description in the top bar, then click `Next` and then `Finish`.

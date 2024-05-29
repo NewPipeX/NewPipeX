@@ -17,12 +17,12 @@
 - Before:
 - After:
 
-#### Fixes the following Issue(s)
+#### Closes the following Issue(s)
 <!-- REQUIRED - Do not delete! -->
 <!-- All PRs MUST HAVE at least one associated Issue. -->
 <!-- PRs that do not link to an Issue may be closed. -->
-<!-- Prefix issues with "Fixes" so that GitHub closes them when the PR is merged (note that each "Fixes #" should be in its own item). Also add any other relevant links. -->
-- Fixes #
+<!-- Prefix issues with "Closes" so that GitHub closes them when the PR is merged. Also add any other relevant links. -->
+- Closes #
 
 #### Relies on the following changes
 <!-- Delete this if it doesn't apply to your PR. -->
@@ -34,4 +34,4 @@
 The APK can be found by going to the "Checks" tab below the title. On the left pane, click on "CI", scroll down to "artifacts" and click "app" to download the zip file which contains the debug APK of this PR. You can find more info and a video demonstration [on this wiki page](https://github.com/TeamNewPipe/NewPipe/wiki/Download-APK-for-PR).
 
 #### Due diligence
-- [ ] I have read and understood the [contribution guidelines](https://github.com/NewPipeX/NewPipeX/blob/sponsorblock/.github/CONTRIBUTING.md).
+- [ ] I have read and understood the [contribution guidelines](https://github.com/NewPipeX/NewPipeX/blob/main/.github/CONTRIBUTING.md).

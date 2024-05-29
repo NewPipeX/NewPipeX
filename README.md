@@ -5,7 +5,7 @@
 
 [![Release](https://img.shields.io/github/v/release/NewPipeX/NewPipeX?label=Release)](https://github.com/NewPipeX/NewPipeX/releases/latest)
 [![License](https://img.shields.io/github/license/NewPipeX/NewPipeX?color=blue&label=License)](https://www.gnu.org/licenses/gpl-3.0)
-[![CI](https://github.com/NewPipeX/NewPipeX/actions/workflows/ci.yml/badge.svg?branch=sponsorblock)](https://github.com/NewPipeX/NewPipeX/actions?query=branch%3Asponsorblock)
+[![CI](https://github.com/NewPipeX/NewPipeX/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/NewPipeX/NewPipeX/actions?query=branch%3Amain)
 ___
 
 ## What is this?

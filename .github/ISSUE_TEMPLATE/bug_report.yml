@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for helping to make this fork of `NewPipe` better by reporting a bug. :hugs:
+        Thank you for helping to make `NewPipe X` better by reporting a bug. :hugs:
 
         Please fill in as much information as possible about your bug so that we don't have to play "information ping-pong" and can help you immediately.
 
@@ -14,36 +14,23 @@ body:
     attributes:
       label: "Checklist"
       options:
-        - label: "I am able to reproduce the bug with the latest Release of this fork: [CLICK THIS LINK](https://github.com/NewPipeX/NewPipeX/releases/latest)."
-          required: true
-        - label: "I am *not* able to reproduce the bug with the *same version* of [upstream `NewPipe`](https://github.com/TeamNewPipe/NewPipe/releases)."
+        - label: "I am able to reproduce the bug with the latest version of `NewPipe X`: [CLICK THIS LINK](https://github.com/NewPipeX/NewPipeX/releases/latest)."
           required: true
         - label: "I made sure that there are *no existing bug reports* - [open](https://github.com/NewPipeX/NewPipeX/issues?q=is%3Aissue+is%3Aopen+label%3Abug) or [closed](https://github.com/NewPipeX/NewPipeX/issues?q=is%3Aissue+is%3Aclosed+label%3Abug) - which I could contribute my information to."
-          required: true
-        - label: "I made sure that this bug is *not* [a known issue with upstream `NewPipe`](https://github.com/TeamNewPipe/NewPipe/issues?q=is%3Aissue+is%3Aopen+label%3Abug)."
           required: true
         - label: "I have taken the time to completely fill in the required details. I understand that my bug report may be dismissed otherwise."
           required: true
         - label: "I have limited the scope of this bug report to a single bug."
           required: true
-        - label: "I have read and understood the [contribution guidelines](https://github.com/NewPipeX/NewPipeX/blob/sponsorblock/.github/CONTRIBUTING.md)."
+        - label: "I have read and understood the [contribution guidelines](https://github.com/NewPipeX/NewPipeX/blob/main/.github/CONTRIBUTING.md)."
           required: true
-
-  - type: input
-    id: fork-revision
-    attributes:
-     label: Affected release
-     description: "In which [Release](https://github.com/NewPipeX/NewPipeX/releases) of this fork did you encounter the bug?"
-     placeholder: "x.xx.x-x - The version/tag of the Release on GitHub"
-    validations:
-      required: true
 
   - type: input
     id: app-version
     attributes:
      label: App version
      description: "What version number is shown in the app where you encountered the bug?"
-     placeholder: "x.xx.x - Can be seen in the app from the 'About' section in the sidebar"
+     placeholder: "vX.XX.X-X - Can be seen in the app from the 'About' section in the sidebar"
     validations:
       required: true
 

@@ -15,7 +15,7 @@ body:
           required: true
         - label: "I have taken the time to completely fill in the required details. I understand that my question may be dismissed otherwise."
           required: true
-        - label: "I have read and understood the [contribution guidelines](https://github.com/NewPipeX/NewPipeX/blob/sponsorblock/.github/CONTRIBUTING.md)."
+        - label: "I have read and understood the [contribution guidelines](https://github.com/NewPipeX/NewPipeX/blob/main/.github/CONTRIBUTING.md)."
           required: true
 
   - type: textarea

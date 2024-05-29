@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for helping to make this fork of `NewPipe` better by suggesting a feature. :hugs:
+        Thank you for helping to make `NewPipe X` better by suggesting a feature. :hugs:
 
         Your ideas are highly welcome! The app is made for you, the users, after all.
   - type: checkboxes
@@ -17,16 +17,8 @@ body:
           required: true
         - label: "My feature request has a well-defined scope and is described in sufficient detail."
           required: true
-        - label: "I understand and accept that my feature request may not be considered unless it can attract significant community support."
+        - label: "I have read and understood the [contribution guidelines](https://github.com/NewPipeX/NewPipeX/blob/main/.github/CONTRIBUTING.md)."
           required: true
-        - label: "I have read and understood the [contribution guidelines](https://github.com/NewPipeX/NewPipeX/blob/sponsorblock/.github/CONTRIBUTING.md)."
-          required: true
-        - label: "I am positive that my feature request meets *one* of the following criteria, and I have checked the *one* box that applies to my feature request below:"
-          required: true
-        - label: "My feature request relates to fork-specific functionality that does not exist upstream (e.g., `SponsorBlock`, `Return YouTube Dislike`)."
-          required: false
-        - label: "My feature request has already been opened upstream, _and_ it has been declined."
-          required: false
 
   - type: textarea
     id: feature-description
@@ -43,17 +35,6 @@ body:
       label: Why do you want this feature?
       description: |
         Describe any problem or limitation you come across while using the app which would be solved by this feature.
-    validations:
-      required: true
-
-  - type: textarea
-    id: why-relevant-to-fork
-    attributes:
-      label: Why is this feature relevant to this fork?
-      description: |
-        Describe why this feature is relevant to this fork's specific functionality that does not exist upstream OR demonstrate that this feature has already been requested [upstream](https://github.com/TeamNewPipe/NewPipe/issues), and it was *explicitly* declined.
-
-        (This is not the place for stale upstream feature requests!)
     validations:
       required: true
 
