@@ -5,9 +5,7 @@ on:
   pull_request:
     branches:
       - dev
-      - master
-      - release**
-      - sponsorblock
+      - main
     paths-ignore:
       - 'README.md'
       - 'doc/**'
@@ -19,8 +17,7 @@ on:
   push:
     branches:
       - dev
-      - master
-      - sponsorblock
+      - main
     paths-ignore:
       - 'README.md'
       - 'doc/**'
