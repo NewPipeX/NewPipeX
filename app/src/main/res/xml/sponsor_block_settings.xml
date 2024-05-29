@@ -35,6 +35,14 @@
 
         <SwitchPreference
             app:iconSpaceReserved="false"
+            android:dependency="@string/sponsor_block_enable_key"
+            android:defaultValue="false"
+            android:key="@string/sponsor_graced_rewind_key"
+            android:summary="@string/sponsor_block_graced_rewind_summary"
+            android:title="@string/sponsor_block_graced_rewind_title"/>
+
+        <SwitchPreference
+            app:iconSpaceReserved="false"
             android:defaultValue="true"
             android:dependency="@string/sponsor_block_api_url_key"
             android:key="@string/sponsor_block_notifications_key"

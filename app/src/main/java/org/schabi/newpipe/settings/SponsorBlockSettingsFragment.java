@@ -92,6 +92,9 @@ public class SponsorBlockSettingsFragment extends BasePreferenceFragment {
             findPreference(getString(R.string.sponsor_block_enable_key))
                     .onDependencyChanged(preference,
                             newValue == null || newValue.equals(""));
+            findPreference(getString(R.string.sponsor_graced_rewind_key))
+                    .onDependencyChanged(preference,
+                            newValue == null || newValue.equals(""));
             findPreference(getString(R.string.sponsor_block_notifications_key))
                     .onDependencyChanged(preference,
                             newValue == null || newValue.equals(""));

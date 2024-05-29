@@ -123,6 +123,7 @@ import org.schabi.newpipe.util.NavigationHelper;
 import org.schabi.newpipe.util.image.PicassoHelper;
 import org.schabi.newpipe.util.SerializedCache;
 import org.schabi.newpipe.util.SponsorBlockMode;
+import org.schabi.newpipe.util.SponsorBlockSecondaryMode;
 import org.schabi.newpipe.util.StreamTypeUtil;
 import org.schabi.newpipe.util.VideoSegment;
 
@@ -173,6 +174,7 @@ public final class Player implements PlaybackListener, Listener {
 
     public static final int PLAY_PREV_ACTIVATION_LIMIT_MILLIS = 5000; // 5 seconds
     public static final int PROGRESS_LOOP_INTERVAL_MILLIS = 1000; // 1 second
+    private static final int MANUAL_UNSKIP_WINDOW_MILLIS = 5000; // 5 seconds
 
     /*//////////////////////////////////////////////////////////////////////////
     // Other constants
@@ -273,6 +275,8 @@ public final class Player implements PlaybackListener, Listener {
     //////////////////////////////////////////////////////////////////////////*/
     private SponsorBlockMode sponsorBlockMode = SponsorBlockMode.DISABLED;
     private int lastSkipTarget = -1;
+    private VideoSegment lastSegment;
+    private boolean autoSkipGracePeriod = false;
 
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -936,10 +940,16 @@ public final class Player implements PlaybackListener, Listener {
     }
 
     public void triggerProgressUpdate() {
-        triggerProgressUpdate(false);
+        triggerProgressUpdate(false, false, false);
     }
 
-    private void triggerProgressUpdate(final boolean isRewind) {
+    public void triggerProgressUpdate(final boolean isRewind) {
+        triggerProgressUpdate(isRewind, false, false);
+    }
+
+    private void triggerProgressUpdate(final boolean isRewind,
+                                       final boolean isGracedRewind,
+                                       final boolean bypassSecondaryMode) {
         if (exoPlayerIsNull()) {
             return;
         }
@@ -952,9 +962,62 @@ public final class Player implements PlaybackListener, Listener {
                 simpleExoPlayer.getBufferedPercentage());
 
         if (sponsorBlockMode == SponsorBlockMode.ENABLED && isPrepared) {
-            final VideoSegment segment = getSkippableSegment(currentProgress);
-            if (segment == null) {
+            VideoSegment segment = getSkippableSegment(currentProgress);
+
+            // look for old segment, destroy it if invalid
+            if (lastSegment != null && currentProgress > lastSegment.endTime
+                    + MANUAL_UNSKIP_WINDOW_MILLIS) {
+                lastSegment = null;
+            } else if (segment == null && lastSegment != null
+                    && currentProgress < lastSegment.endTime + MANUAL_UNSKIP_WINDOW_MILLIS
+            && currentProgress >= lastSegment.startTime) {
+                // use old segment if exists AND currentProgress in bounds
+                segment = lastSegment;
+            }
+
+            // per-segment category skip setting
+            final SponsorBlockSecondaryMode secondaryMode = getSegmentLvlSkip(segment);
+
+            // show/hide manual skip buttons
+            if (secondaryMode != SponsorBlockSecondaryMode.HIGHLIGHT) {
+                if (segment != null && currentProgress < segment.endTime
+                        && currentProgress > segment.startTime) {
+                    UIs.call(PlayerUi::showAutoSkip);
+                } else {
+                    UIs.call(PlayerUi::hideAutoSkip);
+                }
+
+                if (lastSegment != null && currentProgress > lastSegment.startTime
+                        && currentProgress < lastSegment.endTime + MANUAL_UNSKIP_WINDOW_MILLIS) {
+                    UIs.call(PlayerUi::showAutoUnskip);
+                } else {
+                    UIs.call(PlayerUi::hideAutoUnskip);
+                }
+            }
+
+
+            // continue if we are graced
+            if (segment == null && !isGracedRewind) {
                 lastSkipTarget = -1;
+                return;
+            }
+
+            // disable grace when not in previous graced section
+            // don't handle grace when this is an un-skip request
+            if (!isGracedRewind) {
+                if (autoSkipGracePeriod && currentProgress > lastSegment.endTime) {
+                    autoSkipGracePeriod = false;
+                } else if (autoSkipGracePeriod) {
+                    return;
+                }
+            } else {
+                autoSkipGracePeriod = true;
+            }
+
+            // Do not skip if highlight mode. Do not skip if manual mode + no explicit bypass
+            if (segment == null || secondaryMode == SponsorBlockSecondaryMode.HIGHLIGHT
+                    || (secondaryMode == SponsorBlockSecondaryMode.MANUAL
+                    && !bypassSecondaryMode)) {
                 return;
             }
 
@@ -971,6 +1034,7 @@ public final class Player implements PlaybackListener, Listener {
             }
 
             lastSkipTarget = skipTarget;
+            lastSegment = segment;
 
             // temporarily force EXACT seek parameters to prevent infinite skip looping
             final SeekParameters seekParams = simpleExoPlayer.getSeekParameters();
@@ -982,42 +1046,25 @@ public final class Player implements PlaybackListener, Listener {
 
             if (prefs.getBoolean(
                     context.getString(R.string.sponsor_block_notifications_key), false)) {
-                String toastText = "";
-
-                switch (segment.category) {
-                    case "sponsor":
-                        toastText = context
-                                .getString(R.string.sponsor_block_skip_sponsor_toast);
-                        break;
-                    case "intro":
-                        toastText = context
-                                .getString(R.string.sponsor_block_skip_intro_toast);
-                        break;
-                    case "outro":
-                        toastText = context
-                                .getString(R.string.sponsor_block_skip_outro_toast);
-                        break;
-                    case "interaction":
-                        toastText = context
-                                .getString(R.string.sponsor_block_skip_interaction_toast);
-                        break;
-                    case "selfpromo":
-                        toastText = context
-                                .getString(R.string.sponsor_block_skip_self_promo_toast);
-                        break;
-                    case "music_offtopic":
-                        toastText = context
-                                .getString(R.string.sponsor_block_skip_non_music_toast);
-                        break;
-                    case "preview":
-                        toastText = context
-                                .getString(R.string.sponsor_block_skip_preview_toast);
-                        break;
-                    case "filler":
-                        toastText = context
-                                .getString(R.string.sponsor_block_skip_filler_toast);
-                        break;
-                }
+                final String toastText = switch (segment.category) {
+                    case "sponsor" -> context
+                            .getString(R.string.sponsor_block_skip_sponsor_toast);
+                    case "intro" -> context
+                            .getString(R.string.sponsor_block_skip_intro_toast);
+                    case "outro" -> context
+                            .getString(R.string.sponsor_block_skip_outro_toast);
+                    case "interaction" -> context
+                            .getString(R.string.sponsor_block_skip_interaction_toast);
+                    case "selfpromo" -> context
+                            .getString(R.string.sponsor_block_skip_self_promo_toast);
+                    case "music_offtopic" -> context
+                            .getString(R.string.sponsor_block_skip_non_music_toast);
+                    case "preview" -> context
+                            .getString(R.string.sponsor_block_skip_preview_toast);
+                    case "filler" -> context
+                            .getString(R.string.sponsor_block_skip_filler_toast);
+                    default -> "";
+                };
 
                 Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
             }
@@ -1309,6 +1356,15 @@ public final class Player implements PlaybackListener, Listener {
         if (!exoPlayerIsNull()) {
             simpleExoPlayer.setShuffleModeEnabled(!simpleExoPlayer.getShuffleModeEnabled());
         }
+    }
+
+    public void toggleUnskip() {
+        triggerProgressUpdate(true, true, true);
+    }
+
+    public void toggleSkip() {
+        autoSkipGracePeriod = false;
+        triggerProgressUpdate(false, true, true);
     }
     //endregion
 
@@ -1815,6 +1871,12 @@ public final class Player implements PlaybackListener, Listener {
             Log.d(TAG, "fastRewind() called");
         }
         seekBy(-retrieveSeekDurationFromPreferences(this));
+
+        if (prefs.getBoolean(
+                context.getString(R.string.sponsor_graced_rewind_key), false)) {
+            triggerProgressUpdate(true, true, false);
+            return;
+        }
         triggerProgressUpdate(true);
     }
     //endregion
@@ -2439,6 +2501,52 @@ public final class Player implements PlaybackListener, Listener {
         }
 
         return null;
+    }
+
+    private SponsorBlockSecondaryMode getSegmentLvlSkip(final VideoSegment segment) {
+        if (segment == null) {
+            return SponsorBlockSecondaryMode.DISABLED;
+        }
+
+        // get pref
+        final String defaultValue = context.getString(R.string.sponsor_block_skip_mode_disabled);
+        final String key = switch (segment.category) {
+            case "sponsor" -> prefs.getString(
+                    context.getString(R.string.sponsor_block_category_sponsor_mode_key),
+                    defaultValue);
+            case "intro" -> prefs.getString(
+                    context.getString(R.string.sponsor_block_category_intro_mode_key),
+                    defaultValue);
+            case "outro" -> prefs.getString(
+                    context.getString(R.string.sponsor_block_category_outro_mode_key),
+                    defaultValue);
+            case "interaction" -> prefs.getString(
+                    context.getString(R.string.sponsor_block_category_interaction_mode_key),
+                    defaultValue);
+            case "selfpromo" -> prefs.getString(
+                    context.getString(R.string.sponsor_block_category_self_promo_mode_key),
+                    defaultValue);
+            case "music_offtopic" -> prefs.getString(
+                    context.getString(R.string.sponsor_block_category_non_music_mode_key),
+                    defaultValue);
+            case "preview" -> prefs.getString(
+                    context.getString(R.string.sponsor_block_category_preview_mode_key),
+                    defaultValue);
+            case "filler" -> prefs.getString(
+                    context.getString(R.string.sponsor_block_category_filler_mode_key),
+                    defaultValue);
+            default -> "";
+        };
+
+        // map pref to enum
+        final SponsorBlockSecondaryMode pref =
+                switch (key) {
+                    case "Automatic" -> SponsorBlockSecondaryMode.ENABLED;
+                    case "Show Skip Button" -> SponsorBlockSecondaryMode.MANUAL;
+                    case "Highlight Only" -> SponsorBlockSecondaryMode.HIGHLIGHT;
+                    default -> SponsorBlockSecondaryMode.DISABLED;
+        };
+        return pref;
     }
 
     //endregion

@@ -916,6 +916,15 @@
     <string name="sponsor_block_confirm_clear_whitelist">Are you sure you want to clear the whitelist?</string>
     <string name="sponsor_block_confirm_reset_colors">Are you sure you want to reset the category colors?</string>
     <string name="sponsor_block_reset_colors_toast">Colors reset.</string>
+    <string name="sponsor_block_skip_mode_disabled">Disabled</string>
+    <string name="sponsor_block_skip_mode_enabled">Automatic Skipping</string>
+    <string name="sponsor_block_skip_mode_manual">Show Skip Button</string>
+    <string name="sponsor_block_skip_mode_highlight">Highlight Only</string>
+    <string name="sponsor_block_graced_rewind_title">Rewind pauses skipping</string>
+    <string name="sponsor_block_graced_rewind_summary">Rewinding the video back into automatically skipped segments will pause segment skipping until the segment ends.</string>
+    <string name="sponsor_block_manual_unskip_button">Un-skip</string>
+    <string name="sponsor_block_manual_skip_button">Skip</string>
+
     <!-- Extras -->
     <string name="extras">Extras</string>
     <string name="extras_todo_summary">Tweaks, workarounds, and other miscellaneous settings belong here.</string>
