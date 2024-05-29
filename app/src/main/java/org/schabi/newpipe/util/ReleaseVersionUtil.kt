@@ -1,97 +1,39 @@
 package org.schabi.newpipe.util
 
 import android.content.pm.PackageManager
-import android.content.pm.Signature
 import androidx.core.content.pm.PackageInfoCompat
 import org.schabi.newpipe.App
 import org.schabi.newpipe.error.ErrorInfo
 import org.schabi.newpipe.error.ErrorUtil.Companion.createNotification
 import org.schabi.newpipe.error.UserAction
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
-import java.security.cert.CertificateEncodingException
-import java.security.cert.CertificateException
-import java.security.cert.CertificateFactory
-import java.security.cert.X509Certificate
 import java.time.Instant
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 object ReleaseVersionUtil {
-    // Public key of the certificate that is used in NewPipe release versions
-    private const val RELEASE_CERT_PUBLIC_KEY_SHA1 =
-        "7F:46:0D:D0:6A:2D:A0:6B:57:B5:2C:ED:73:06:B7:87:43:90:66:A9"
+    // Public key of the certificate that is used in NewPipe X release versions
+    private const val RELEASE_CERT_PUBLIC_KEY_SHA256 =
+        "8c5c1fa014845691dfb0ce85f113fa09dbe9b7b302bf61af462f522191e1848e"
 
-    @JvmStatic
-    fun isReleaseApk(): Boolean {
-        return certificateSHA1Fingerprint == RELEASE_CERT_PUBLIC_KEY_SHA1
-    }
-
-    /**
-     * Method to get the APK's SHA1 key. See https://stackoverflow.com/questions/9293019/#22506133.
-     *
-     * @return String with the APK's SHA1 fingerprint in hexadecimal
-     */
-    private val certificateSHA1Fingerprint: String
-        get() {
-            val app = App.getApp()
-            val signatures: List<Signature> = try {
-                PackageInfoCompat.getSignatures(app.packageManager, app.packageName)
-            } catch (e: PackageManager.NameNotFoundException) {
-                showRequestError(app, e, "Could not find package info")
-                return ""
-            }
-            if (signatures.isEmpty()) {
-                return ""
-            }
-            val x509cert = try {
-                val cf = CertificateFactory.getInstance("X509")
-                cf.generateCertificate(signatures[0].toByteArray().inputStream()) as X509Certificate
-            } catch (e: CertificateException) {
-                showRequestError(app, e, "Certificate error")
-                return ""
-            }
-
-            return try {
-                val md = MessageDigest.getInstance("SHA1")
-                val publicKey = md.digest(x509cert.encoded)
-                byte2HexFormatted(publicKey)
-            } catch (e: NoSuchAlgorithmException) {
-                showRequestError(app, e, "Could not retrieve SHA1 key")
-                ""
-            } catch (e: CertificateEncodingException) {
-                showRequestError(app, e, "Could not retrieve SHA1 key")
-                ""
-            }
-        }
-
-    private fun byte2HexFormatted(arr: ByteArray): String {
-        val str = StringBuilder(arr.size * 2)
-        for (i in arr.indices) {
-            var h = Integer.toHexString(arr[i].toInt())
-            val l = h.length
-            if (l == 1) {
-                h = "0$h"
-            }
-            if (l > 2) {
-                h = h.substring(l - 2, l)
-            }
-            str.append(h.uppercase())
-            if (i < arr.size - 1) {
-                str.append(':')
-            }
-        }
-        return str.toString()
-    }
-
-    private fun showRequestError(app: App, e: Exception, request: String) {
-        createNotification(
-            app, ErrorInfo(e, UserAction.CHECK_FOR_NEW_APP_VERSION, request)
+    @OptIn(ExperimentalStdlibApi::class)
+    val isReleaseApk by lazy {
+        @Suppress("NewApi")
+        val certificates = mapOf(
+            RELEASE_CERT_PUBLIC_KEY_SHA256.hexToByteArray() to PackageManager.CERT_INPUT_SHA256
         )
+        val app = App.getApp()
+        try {
+            PackageInfoCompat.hasSignatures(app.packageManager, app.packageName, certificates, false)
+        } catch (e: PackageManager.NameNotFoundException) {
+            createNotification(
+                app, ErrorInfo(e, UserAction.CHECK_FOR_NEW_APP_VERSION, "Could not find package info")
+            )
+            false
+        }
     }
 
     fun isLastUpdateCheckExpired(expiry: Long): Boolean {
-        return Instant.ofEpochSecond(expiry).isBefore(Instant.now())
+        return Instant.ofEpochSecond(expiry) < Instant.now()
     }
 
     /**
