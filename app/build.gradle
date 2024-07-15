@@ -20,7 +20,7 @@ android {
         resValue "string", "app_name", "NewPipe X"
         minSdk 21
         targetSdk 33
-        def versionCodeStr = "270001"
+        def versionCodeStr = "270101"
         versionCode versionCodeStr.toInteger()
         def versionArray = Arrays.stream(versionCodeStr.split("(?<=\\G.{2})")).mapToInt(Integer::parseInt).toArray()
         versionName "0.${versionArray[0]}.${versionArray[1]}-${versionArray[2]}"
