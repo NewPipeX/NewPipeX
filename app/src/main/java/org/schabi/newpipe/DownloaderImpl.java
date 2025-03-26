@@ -29,7 +29,7 @@ import okhttp3.ResponseBody;
 
 public final class DownloaderImpl extends Downloader {
     public static final String USER_AGENT =
-            "Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101 Firefox/91.0";
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0";
     public static final String YOUTUBE_RESTRICTED_MODE_COOKIE_KEY =
             "youtube_restricted_mode_key";
     public static final String YOUTUBE_RESTRICTED_MODE_COOKIE = "PREF=f2=8000000";
@@ -38,11 +38,10 @@ public final class DownloaderImpl extends Downloader {
     private static DownloaderImpl instance;
     private final Map<String, String> mCookies;
     private final OkHttpClient client;
-    private Integer customTimeout;
 
     private DownloaderImpl(final OkHttpClient.Builder builder) {
         this.client = builder
-                .readTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(3, TimeUnit.SECONDS)
 //                .cache(new Cache(new File(context.getExternalCacheDir(), "okhttp"),
 //                        16 * 1024 * 1024))
                 .build();
@@ -63,11 +62,6 @@ public final class DownloaderImpl extends Downloader {
 
     public static DownloaderImpl getInstance() {
         return instance;
-    }
-
-    public DownloaderImpl setCustomTimeout(final Integer value) {
-        this.customTimeout = value;
-        return this;
     }
 
     public String getCookies(final String url) {
@@ -143,7 +137,8 @@ public final class DownloaderImpl extends Downloader {
         }
 
         final okhttp3.Request.Builder requestBuilder = new okhttp3.Request.Builder()
-                .method(httpMethod, requestBody).url(url)
+                .method(httpMethod, requestBody)
+                .url(url)
                 .addHeader("User-Agent", USER_AGENT);
 
         final String cookies = getCookies(url);
@@ -151,47 +146,33 @@ public final class DownloaderImpl extends Downloader {
             requestBuilder.addHeader("Cookie", cookies);
         }
 
-        for (final Map.Entry<String, List<String>> pair : headers.entrySet()) {
-            final String headerName = pair.getKey();
-            final List<String> headerValueList = pair.getValue();
+        headers.forEach((headerName, headerValueList) -> {
+            requestBuilder.removeHeader(headerName);
+            headerValueList.forEach(headerValue ->
+                    requestBuilder.addHeader(headerName, headerValue));
+        });
 
-            if (headerValueList.size() > 1) {
-                requestBuilder.removeHeader(headerName);
-                for (final String headerValue : headerValueList) {
-                    requestBuilder.addHeader(headerName, headerValue);
-                }
-            } else if (headerValueList.size() == 1) {
-                requestBuilder.header(headerName, headerValueList.get(0));
+        try (
+                okhttp3.Response response = client.newCall(requestBuilder.build()).execute()
+        ) {
+            if (response.code() == 429) {
+                throw new ReCaptchaException("reCaptcha Challenge requested", url);
             }
 
+            String responseBodyToReturn = null;
+            try (ResponseBody body = response.body()) {
+                if (body != null) {
+                    responseBodyToReturn = body.string();
+                }
+            }
+
+            final String latestUrl = response.request().url().toString();
+            return new Response(
+                    response.code(),
+                    response.message(),
+                    response.headers().toMultimap(),
+                    responseBodyToReturn,
+                    latestUrl);
         }
-
-        OkHttpClient tmpClient = client;
-        final okhttp3.Response response;
-
-        if (customTimeout != null) {
-            tmpClient = new OkHttpClient.Builder()
-                    .readTimeout(customTimeout, TimeUnit.SECONDS)
-                    .build();
-        }
-
-        response = tmpClient.newCall(requestBuilder.build()).execute();
-
-        if (response.code() == 429) {
-            response.close();
-
-            throw new ReCaptchaException("reCaptcha Challenge requested", url);
-        }
-
-        final ResponseBody body = response.body();
-        String responseBodyToReturn = null;
-
-        if (body != null) {
-            responseBodyToReturn = body.string();
-        }
-
-        final String latestUrl = response.request().url().toString();
-        return new Response(response.code(), response.message(), response.headers().toMultimap(),
-                responseBodyToReturn, latestUrl);
     }
 }

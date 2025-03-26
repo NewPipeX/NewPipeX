@@ -1,6 +1,5 @@
 package org.schabi.newpipe.views;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -8,10 +7,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatSeekBar;
-import androidx.core.content.ContextCompat;
-
-import org.schabi.newpipe.R;
 
 import java.util.ArrayList;
 
@@ -74,11 +71,10 @@ public class MarkableSeekBar extends AppCompatSeekBar {
         markerDrawables.add(layerDrawable);
 
         for (final SeekBarMarker seekBarMarker : seekBarMarkers) {
-            @SuppressLint("PrivateResource")
             final Drawable markerDrawable =
-                    ContextCompat.getDrawable(
+                    AppCompatResources.getDrawable(
                             getContext(),
-                            R.drawable.abc_scrubber_primary_mtrl_alpha);
+                            com.google.android.material.R.drawable.abc_scrubber_primary_mtrl_alpha);
 
             final PorterDuffColorFilter colorFilter =
                     new PorterDuffColorFilter(seekBarMarker.color, PorterDuff.Mode.SRC_IN);

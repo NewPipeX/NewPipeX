@@ -20,7 +20,7 @@ android {
         resValue "string", "app_name", "NewPipe X"
         minSdk 21
         targetSdk 33
-        def versionCodeStr = "270201"
+        def versionCodeStr = "270601"
         versionCode versionCodeStr.toInteger()
         def versionArray = Arrays.stream(versionCodeStr.split("(?<=\\G.{2})")).mapToInt(Integer::parseInt).toArray()
         versionName "0.${versionArray[0]}.${versionArray[1]}-${versionArray[2]}"
@@ -116,6 +116,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        buildConfig true
     }
 
     packagingOptions {
@@ -136,7 +137,7 @@ ext {
     androidxRoomVersion = "2.6.1"
     androidxWorkVersion = "2.8.1"
 
-    icepickVersion = "3.2.0"
+    stateSaverVersion = '1.4.1'
     exoPlayerVersion = "2.18.7"
     googleAutoServiceVersion = "1.1.1"
     groupieVersion = "2.10.1"
@@ -221,9 +222,11 @@ dependencies {
     // Or you can use a commit you pushed to GitHub by just replacing TeamNewPipe with your GitHub
     // name and the commit hash with the commit hash of the (pushed) commit you want to test
     // This works thanks to JitPack: https://jitpack.io/
-    implementation "com.github.TeamNewPipe:nanojson:1d9e1aea9049fc9f85e68b43ba39fe7be1c1f751"
-    implementation "com.github.TeamNewPipe:NewPipeExtractor:v0.24.2"
-    implementation "com.github.TeamNewPipe:NoNonsense-FilePicker:5.0.0"
+    implementation 'com.github.TeamNewPipe:nanojson:1d9e1aea9049fc9f85e68b43ba39fe7be1c1f751'
+    // WORKAROUND: if you get errors with the NewPipeExtractor dependency, replace `v0.24.3` with
+    // the corresponding commit hash, since JitPack is sometimes buggy
+    implementation 'com.github.TeamNewPipe:NewPipeExtractor:9f83b385a'
+    implementation 'com.github.TeamNewPipe:NoNonsense-FilePicker:5.0.0'
 
 /** Checkstyle **/
     checkstyle "com.puppycrawl.tools:checkstyle:${checkstyleVersion}"
@@ -254,12 +257,14 @@ dependencies {
     implementation "androidx.viewpager2:viewpager2:1.1.0-beta02"
     implementation "androidx.work:work-runtime-ktx:${androidxWorkVersion}"
     implementation "androidx.work:work-rxjava3:${androidxWorkVersion}"
-    implementation "com.google.android.material:material:1.11.0"
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation "androidx.webkit:webkit:1.9.0"
 
 /** Third-party libraries **/
     // Instance state boilerplate elimination
-    implementation "frankiesardo:icepick:${icepickVersion}"
-    kapt "frankiesardo:icepick-processor:${icepickVersion}"
+    implementation 'com.github.livefront:bridge:v2.0.2'
+    implementation "com.evernote:android-state:$stateSaverVersion"
+    kapt "com.evernote:android-state-processor:$stateSaverVersion"
 
     // HTML parser
     implementation "org.jsoup:jsoup:1.17.2"
@@ -306,7 +311,7 @@ dependencies {
     implementation "com.jakewharton.rxbinding4:rxbinding:4.0.0"
 
     // Date and time formatting
-    implementation "org.ocpsoft.prettytime:prettytime:5.0.7.Final"
+    implementation "org.ocpsoft.prettytime:prettytime:5.0.8.Final"
 
 /** Debugging **/
     // Memory leak detection
